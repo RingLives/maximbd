@@ -77,6 +77,78 @@ class TaskController extends Controller {
 
 		} elseif ($taskType === 'IPO') {
 
+<<<<<<< 8644463568687d3da579ae68c9e24436845e722d
+=======
+// 			if (isset($_POST['ipo_increase']) && $_POST['ipo_increase'] == 'YES') {
+				
+// 				$lastIpoIds = [];
+// 				$IpoUniqueID = "RGA" . Carbon::now()->format('dmY') . "-ACL-02-" . mt_rand(10000, 99999);
+
+// 				$bookingDetails = DB::table("mxp_booking_challan")->where('booking_order_id', $request->bookingId)->get();
+
+// 				foreach ($bookingDetails as $details) {
+// 					$createIpo = new MxpIpo();
+// 					$createIpo->user_id = Auth::user()->user_id;
+// 					$createIpo->ipo_id = $IpoUniqueID;
+// //                  $createIpo->initial_increase = $ipoIncrease;
+// 					$createIpo->booking_order_id = $details->booking_order_id;
+// 					$createIpo->erp_code = $details->erp_code;
+// 					$createIpo->item_code = $details->item_code;
+// 					$createIpo->item_description = $details->item_description;
+// 					$createIpo->item_size = $details->item_size;
+// 					$createIpo->item_quantity = $details->item_quantity;
+// 					$createIpo->item_price = $details->item_price;
+// 					$createIpo->matarial = $details->matarial;
+// 					$createIpo->gmts_color = $details->gmts_color;
+// 					$createIpo->others_color = $details->others_color;
+// 					$createIpo->orderDate = $details->orderDate;
+// 					$createIpo->orderNo = $details->orderNo;
+// 					$createIpo->shipmentDate = $details->shipmentDate;
+// 					$createIpo->poCatNo = $details->poCatNo;
+// 					$createIpo->status = self::CREATE_IPO;
+// 					$createIpo->save();
+
+// 					array_push($lastIpoIds, $createIpo->id);
+
+// 				}
+
+
+// 				$i = 0;
+// 				$ipoId = 0;
+
+// 				foreach ($request->ipo_increase_percentage as $ipo_inc) {
+
+// 					if (isset($lastIpoIds[$i]) && $ipoId != $lastIpoIds[$i]) {
+// 						$ipoId = $lastIpoIds[$i];
+
+// 						$itemUpdate = MxpIpo::find($ipoId);
+// 						$itemUpdate->initial_increase = $ipo_inc;
+// 						$itemUpdate->save();
+// 					} else {
+// 						$ipoId = $ipoId; 
+// 						$itemUpdate = MxpIpo::find($ipoId);
+// 						$itemUpdate->initial_increase = $itemUpdate->initial_increase . ',' . $ipo_inc;
+// 						$itemUpdate->save();
+// 					}
+
+// 					$IpoUniqueID = $itemUpdate->ipo_id;
+// 					$bookingOrderId = $itemUpdate->booking_order_id;
+// 					$i++;
+// 				}
+
+// 				$ipoDetails = DB::table("mxp_ipo")->where('ipo_id', $IpoUniqueID)->get();
+// 				$buyerDetails = DB::table("mxp_bookingBuyer_details")->where('booking_order_id', $bookingOrderId)->get();
+// 				$headerValue = DB::table("mxp_header")->where('header_type', 11)->get();
+
+// 				return view('maxim.ipo.ipoBillPage', [
+// 					'headerValue' => $headerValue,
+// 					'initIncrease' => $request->ipoIncrease,
+// 					'buyerDetails' => $buyerDetails,
+// 					'sentBillId' => $ipoDetails,
+// 				]);
+
+// 			} else {
+>>>>>>> task edit
 
 				$validMessages = [
 					'bookingId.required' => 'Booking Id is required.',
@@ -118,6 +190,12 @@ class TaskController extends Controller {
 					'ipoIncrease' => $request->ipoIncrease,
 					'ipoListValue' => $ipoListValue,
 				]);
+<<<<<<< 8644463568687d3da579ae68c9e24436845e722d
+=======
+			// }
+
+			// return 0;
+>>>>>>> task edit
 
 		} elseif ($taskType === 'MRF') {
 			$data = $request->all();

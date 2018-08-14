@@ -13,7 +13,7 @@ class AddColToMxpMultipleChallan extends Migration
      */
     public function up()
     {
-        Schema::table('mxp_multiplechallan', function($table){
+        Schema::table('Mxp_multipleChallan', function($table){
             $table->string('gmts_color')->nullable();
             $table->string('checking_ids_of_challan')->nullable();
         });

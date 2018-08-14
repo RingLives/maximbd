@@ -154,7 +154,7 @@ class TaskController extends Controller {
 			}
 
 			$MrfDetails = DB::select("select * from mxp_MRF_table where booking_order_id = '" . $request->bookingId . "' GROUP BY mrf_id");
-
+//            return $bookingDetails;
 			return view('maxim.mrf.mrf', compact('bookingDetails', 'MrfDetails', 'booking_order_id', 'suppliers'));
 
 		} elseif ($taskType === 'challan') {

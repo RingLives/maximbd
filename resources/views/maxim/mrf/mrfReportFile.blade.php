@@ -100,13 +100,14 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-        	<th width="5%">SI No</th>
+        	<th width="4%">SI No</th>
         	<th width="15%">Description</th>
         	<th width="10%">Item code</th>
         	<!-- <th width="10%">OSS</th> -->
             <!-- <th width="10%">Style</th> -->
+            <th width="14%">Color</th>
             <th width="14%">Size</th>
-            <th width="6%">MRF Quantity</th>
+            <th width="7%">MRF Quantity</th>
         </tr>
     </thead>
     <tbody>
@@ -124,6 +125,7 @@
     			<?php
     				$totalQty =0;
     				$itemsize = explode(',', $item->item_size);
+    				$itemcolor = explode(',', $item->gmts_color);
     				$qty = explode(',', $item->mrf_quantity);
     				$itemlength = 0;
     				foreach ($itemsize as $itemlengths) {
@@ -141,32 +143,31 @@
 	    				<td>{{$j++}}</td>
 	    				<td>{{$item->erp_code}}</td>
 	    				<td>{{$item->item_code}}</td>
-	    				<!-- <td rowspan="{{$itemlength}}"></td> -->
-			    		<!-- <td rowspan="{{$itemlength}}"></td>  -->
 
-			    			@if ($itemlength >= 1 )
-				    			<td colspan="2" class="colspan-td">
-				    				<table>
-				    					@foreach ($itemQtyValue as $size => $Qty)
-				    					<?php
-				    						$i++;
-				    						$totalQty += $Qty;
-				    					?>
-				    					<tr>
-				    						<td width="70%">{{$size}}</td>
-							    			<td width="30%">{{$Qty}}</td>
-				    					</tr>
-				    					@endforeach
+						@if ($itemlength >= 1 )
+							<td colspan="3" class="colspan-td">
+								<table>
+									@foreach($qty as $key => $quantity)
+									<tr>
+										<td width="40%">{{$itemcolor[$key]}}</td>
+										<td width="40%">{{$itemsize[$key]}}</td>
+										<td width="20%" style="text-align: center;">{{$quantity}}</td>
+									</tr>
+										@php
+											$i++;
+											$totalQty += $quantity;
+										@endphp
+									@endforeach
 
-				    					@if( $i > 1 )
-				    					<tr>
-				    						<td width="70%"></td>
-				    						<td width="30%">{{$totalQty}}</td>
-				    					</tr>
-				    					@endif
-				    				</table>
-				    			</td>
-				    		@endif
+									@if( $i > 1 )
+									<tr>
+										<td colspan="2" style="text-align: center; font-weight: bold;">Item Total</td>
+										<td style="font-weight: bold; text-align: center;" >{{$totalQty}}</td>
+									</tr>
+									@endif
+								</table>
+							</td>
+						@endif
 
 			    		<?php
     						$totalAllQty += $totalQty;
@@ -176,11 +177,12 @@
     		@endforeach
 
     	<tr>
-			<td colspan="4"><div style="text-align: center; font-weight: bold;font-size: ;"><span>Total Qty </span></div></td>
-			<td>{{$totalAllQty}}</td>
+			<td colspan="5"><div style="text-align: center; font-weight: bold;font-size: ;"><span>Total Qty </span></div></td>
+			<td style="text-align: center;">{{$totalAllQty}}</td>
 		</tr>
 		<tr>
 			<td colspan="5"><div style="text-align: center;font-weight: bold;font-size: ;"><span> Total weight & Box : </span></div></td>
+			<td style="text-align: center;">{{$totalAllQty}}</td>
 		</tr>
 
     </tbody>

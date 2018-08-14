@@ -125,11 +125,11 @@
 										<thead>
 											<tr>
 												<th width="4%">#</th>
-												<th width="">ERP Code</th>
-												<th width="">Item Code</th>
-												<th width="">Item Color</th>
-												<th width="">Item Size</th>
-												<th width="">Item Quantity</th>
+												<th width="15%">ERP Code</th>
+												<th width="15%">Item Code</th>
+												<th width="15%">Color</th>
+												<th width="15%">Size</th>
+												<th width="15%">Quantity Left</th>
 												<th>MRF QTY</th>
 											</tr>
 										</thead>
@@ -139,9 +139,10 @@
 										@foreach ($bookingDetails as $item)
 											<?php
 							    				$itemsize = explode(',', $item->item_size);
+                                            	$gmts_color = explode(',', $item->gmts_color);
 							    				$qty = explode(',', $item->left_mrf_ipo_quantity);
 							    				$mrf_quantity = explode(',', $item->mrf_quantity);
-							    				$gmts_color = explode(',', $item->gmts_color);
+
 							    				$itemQtyValue = array_combine($itemsize, $qty);
 							    			?>
 										<tbody>
@@ -151,55 +152,28 @@
 												</td>
 												<td><span>{{$item->erp_code}}</span></td>
 												<td><span>{{$item->item_code}}</span></td>
-												<td class="colspan-td">
+												<td class="colspan-td" colspan="4">
+
 													<table id="sampleTbl">
-														@foreach($gmts_color as $colors)
-														<tr>
-															<td>{{$colors}}</td>
-														</tr>
-														@endforeach
+														<tbody>
+
+																@foreach ($qty as $key => $leftQuantity)
+																	<tr>
+																		<td style="width: 25%;">{{$gmts_color[$key]}}</td>
+																		<td style="width: 25%;">{{$itemsize[$key]}}</td>
+																		<td style="width: 25%;">
+																			<input type="hidden" name="allId[]" value="{{$item->id}}">
+																			<input style="" type="text" class="form-control item_quantity" name="product_qty[]" value="{{$leftQuantity}}" >
+																		</td>
+																		<td style="width: 25%;">
+																			<input type="text" class="form-control item_mrf" name="item_mrf[]" value="{{$mrf_quantity[$key]}}" disabled="true">
+																		</td>
+																	</tr>
+																@endforeach
+														</tbody>
 													</table>
 												</td>
-												<td colspan="2" class="colspan-td">
-								    				<table width="100%" id="sampleTbl">
-								    					@foreach ($itemQtyValue as $size => $Qty)
-									    					@if(empty($size))
-										    					<tr>
-										    						<td width="40%"></td>
-													    			<td width="30%" class="aaa">
-													    				<input type="hidden" name="allId[]" value="{{$item->id}}">
-																		<input type="text" class="form-control item_quantity" name="product_qty[]" value="{{$Qty}}" >
-													    			</td>
-													    		</tr>
-									    					@else
-										    					<tr>
-										    						<td width="50%">
-										    							{{$size}}
-										    						</td>
-													    			<td width="50%" class="aaa">
-										    							<input type="hidden" name="allId[]" value="{{$item->id}}">
-										    							<div class="question_div">
-																			<input type="text" class="form-control item_quantity" name="product_qty[]" value="{{$Qty}}">
-													    				</div>
-													    			</td>
-										    					</tr>
-									    					@endif
-								    					@endforeach
-								    				</table>
-								    			</td>
-								    			<td class="colspan-td">
-								    				<div class="middel-table">
-								    					<table>
-								    						@foreach($mrf_quantity as $mrf)
-								    							<tr>
-								    								<td width="30%">
-													    				<input type="text" class="form-control item_mrf" name="item_mrf[]" value="{{$mrf}}" disabled="true">
-													    			</td>
-								    							</tr>
-								    						@endforeach
-								    					</table>
-								    				</div>
-								    			</td>
+
 											</tr>
 										</tbody>
 										@endforeach
